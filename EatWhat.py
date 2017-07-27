@@ -44,7 +44,7 @@ def open():
     if sign == request.form.get('sign'):
         return jsonify({'errcode': 0, 'is_config': 1})
     else:
-        return jsonify({'errcode': 5004, 'errmsg': 'sign error %s m:' % {sign, request['sign']}})
+        return jsonify({'errcode': 5004, 'errmsg': 'sign error %s m:' % {sign, request.values['sign']}})
 
 
 def close():
