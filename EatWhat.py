@@ -40,6 +40,7 @@ def show():
 
 
 def open():
+    return calsign(request.form)
     if calsign(request.form) == request.form.get('sign'):
         return jsonify({'errcode': 0, 'is_config': 1})
     else:
@@ -73,11 +74,12 @@ def keyword():
 def calsign(formdict):
     signstr = ''
     d = formdict.to_dict()
-    for key in sorted(d.keys):
+    for key in sorted(d.keys()):
         if key == 'sign' or key == 'keyword' or formdict[key] == '':
             continue
         signstr += key + '=' + d.get(key) + '&'
     signstr += 'key=' + ApiSecret
+    return signstr
     m = hashlib.md5()
     m.update(signstr.encode('utf-8'))
     signstr = m.hexdigest()
@@ -85,4 +87,4 @@ def calsign(formdict):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
