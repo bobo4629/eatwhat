@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 ApiKey = 'A91CE25DECC7E6E8'
 ApiSecret = '8639E817862EB929A993E30FA7846C4F'
-web = 'http://120.77.42.60:5000/index.html'
+web = '127.0.0.1:5000/index.html'
 
 
 #处理最基本的开启等相关
@@ -71,7 +71,8 @@ def keyword():
 #签名算法
 def calsign(formdict):
     signstr = ''
-    for key in formdict:
+
+    for key in sorted(formdict.keys()):
         if key == 'sign' or key == 'keyword':
             continue
         signstr += key + '=' + formdict[key] + '&'
