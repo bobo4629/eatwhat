@@ -27,7 +27,8 @@ def base():
         trigger()
     elif type == 'keyword':
         keyword()
-    return 'ok'
+    else:
+        return 'service well'
 
 
 #显示页面
