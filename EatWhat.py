@@ -40,14 +40,14 @@ def show():
 
 
 def open():
-    if calsign(request.values) == request.form.get('sign'):
+    if calsign(request.form) == request.form.get('sign'):
         return jsonify({'errcode': 0, 'is_config': 1})
     else:
         return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
 
 
 def close():
-    if calsign(request.values) == request.form.get('sign'):
+    if calsign(request.form) == request.form.get('sign'):
         return jsonify({'errcode': 0, 'errmsg': 'OK'})
     else:
         return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
@@ -73,7 +73,7 @@ def keyword():
 def calsign(formdict):
     signstr = ''
     d = formdict.to_dict()
-    for key in d.keys:
+    for key in sorted(d.keys):
         if key == 'sign' or key == 'keyword' or formdict[key] == '':
             continue
         signstr += key + '=' + d.get(key) + '&'
