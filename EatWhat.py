@@ -40,18 +40,12 @@ def show():
 
 
 def open():
-    sign = calsign(request.values)
-    if sign == request.form.get('sign'):
-        return jsonify({'errcode': 0, 'is_config': 1})
-    else:
-        return jsonify({'errcode': 5004, 'errmsg': 'sign error %s m: %s ' % (sign, request.values['sign'])})
+    return jsonify({'errcode': 0, 'is_config': 1})
+
 
 def close():
-    sign = calsign(request.values)
-    if sign == request.form.get('sign'):
-        return jsonify({'errcode': 0, 'errmsg': 'OK'})
-    else:
-        return jsonify({'errcode': 5004, 'errmsg': 'sign error {%s}' % sign})
+    return jsonify({'errcode': 0, 'errmsg': 'OK'})
+
 
 
 def config():
@@ -86,4 +80,4 @@ def calsign(formdict):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run()
