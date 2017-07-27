@@ -78,7 +78,6 @@ def calsign(formdict):
             continue
         signstr += key + '=' + d.get(key) + '&'
     signstr += 'key=' + ApiSecret
-    return signstr
     m = hashlib.md5()
     m.update(signstr.encode('utf-8'))
     signstr = m.hexdigest()
