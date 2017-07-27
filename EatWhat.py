@@ -75,10 +75,10 @@ def calsign(formdict):
     for key in sorted(formdict.keys()):
         if key == 'sign' or key == 'keyword':
             continue
-        signstr += key + '=' + formdict[key] + '&'
+        signstr += key + '=' + formdict.get(key, '') + '&'
     signstr += 'key=' + ApiSecret
     m = hashlib.md5()
-    m.update(signstr.encode('utf-8'))
+    m.update(signstr.encode('latin1'))
     signstr = m.hexdigest()
     return signstr.upper()
 
