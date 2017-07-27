@@ -36,18 +36,18 @@ def base():
 # 显示页面
 @app.route('/index.html')
 def show():
-    return render_template('index.html')
-
-
-def open():
-    if calsign(request.form) == request.form.get('sign'):
+    if calsign(request.values) == request.form.get('sign'):
         return jsonify({'errcode': 0, 'is_config': 1})
     else:
         return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
 
 
+def open():
+    return calsign(request.values)
+
+
 def close():
-    if calsign(request.form.to_dict()) == request.form.get('sign'):
+    if calsign(request.values) == request.form.get('sign'):
         return jsonify({'errcode': 0, 'errmis': 'OK'})
     else:
         return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
@@ -72,9 +72,8 @@ def keyword():
 # 签名算法
 def calsign(formdict):
     signstr = ''
-
-    for key in formdict:
-        if key == 'sign' or key == 'keyword' or formdict[key] == '':
+    for key in sorted(formdict.keys()):
+        if key == 'sign' or key == 'keyword' or key=='type' or formdict[key] == '':
             continue
         signstr += key + '=' + formdict.get(key) + '&'
     signstr += 'key=' + ApiSecret
@@ -82,6 +81,7 @@ def calsign(formdict):
     m.update(signstr.encode('utf-8'))
     signstr = m.hexdigest()
     return signstr.upper()
+
 
 
 if __name__ == '__main__':
