@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 ApiKey = 'A91CE25DECC7E6E8'
 ApiSecret = '8639E817862EB929A993E30FA7846C4F'
-web = '127.0.0.1:5000/index.html'
+web = 'http://120.77.42.60:5000/index.html'
 
 
 #处理最基本的开启等相关
@@ -40,12 +40,17 @@ def show():
 
 
 def open():
-    return jsonify({'errcode': 0, 'is_config': 1})
+    if calsign(request.values) == request.form.get('sign'):
+        return jsonify({'errcode': 0, 'is_config': 1})
+    else:
+        return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
 
 
 def close():
-    return jsonify({'errcode': 0, 'errmsg': 'OK'})
-
+    if calsign(request.values) == request.form.get('sign'):
+        return jsonify({'errcode': 0, 'errmsg': 'OK'})
+    else:
+        return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
 
 
 def config():
@@ -67,16 +72,16 @@ def keyword():
 # 签名算法
 def calsign(formdict):
     signstr = ''
-    for key in sorted(formdict.keys()):
-        if key == 'sign' or key == 'keyword' or key=='type' or formdict[key] == '':
+    d = formdict.to_dict()
+    for key in d.keys:
+        if key == 'sign' or key == 'keyword' or formdict[key] == '':
             continue
-        signstr += key + '=' + formdict.get(key) + '&'
+        signstr += key + '=' + d.get(key) + '&'
     signstr += 'key=' + ApiSecret
     m = hashlib.md5()
     m.update(signstr.encode('utf-8'))
     signstr = m.hexdigest()
     return signstr.upper()
-
 
 
 if __name__ == '__main__':
