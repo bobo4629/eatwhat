@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 ApiKey = 'A91CE25DECC7E6E8'
 ApiSecret = '8639E817862EB929A993E30FA7846C4F'
+web = '127.0.0.1:5000/index.html'
 
 
 #处理最基本的开启等相关
@@ -26,6 +27,13 @@ def base():
         trigger()
     elif type == 'keyword':
         keyword()
+    return 'ok'
+
+
+#显示页面
+@app.route('/index.html')
+def show():
+    return render_template('index.html')
 
 
 def open():
@@ -51,11 +59,11 @@ def monitor():
 
 
 def trigger():
-    return render_template('index.html')
+    return web
 
 
 def keyword():
-    return
+    return jsonify({'errcode': 0, 'errmis': 'OK'})
 
 
 #签名算法
