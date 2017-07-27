@@ -32,7 +32,8 @@ def base():
         re = 'service well'
     return re
 
-#显示页面
+
+# 显示页面
 @app.route('/index.html')
 def show():
     return render_template('index.html')
@@ -46,7 +47,7 @@ def open():
 
 
 def close():
-    if calsign(request.form) == request.form.get('sign'):
+    if calsign(request.form.to_dict()) == request.form.get('sign'):
         return jsonify({'errcode': 0, 'errmis': 'OK'})
     else:
         return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
@@ -68,17 +69,17 @@ def keyword():
     return jsonify({'errcode': 0, 'errmis': 'OK'})
 
 
-#签名算法
+# 签名算法
 def calsign(formdict):
     signstr = ''
 
-    for key in sorted(formdict.keys()):
-        if key == 'sign' or key == 'keyword':
+    for key in formdict:
+        if key == 'sign' or key == 'keyword' or formdict[key] == '':
             continue
-        signstr += key + '=' + formdict.get(key, '') + '&'
+        signstr += key + '=' + formdict.get(key) + '&'
     signstr += 'key=' + ApiSecret
     m = hashlib.md5()
-    m.update(signstr.encode('latin1'))
+    m.update(signstr.encode('utf-8'))
     signstr = m.hexdigest()
     return signstr.upper()
 
