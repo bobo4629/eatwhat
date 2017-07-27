@@ -14,22 +14,23 @@ web = '127.0.0.1:5000/index.html'
 #处理最基本的开启等相关
 @app.route('/index', methods=['POST', 'GET'])
 def base():
+    re = None
     type = request.args.get('type')
     if type == 'open':
-        open()
+        re = open()
     elif type == 'close':
-        close()
+        re = close()
     elif type == 'config':
-        config()
+        re = config()
     elif type == 'monitor':
-        monitor()
+        re = monitor()
     elif type == 'trigger':
-        trigger()
+        re = trigger()
     elif type == 'keyword':
-        keyword()
+        re = keyword()
     else:
-        return 'service well'
-
+        re = 'service well'
+    return re
 
 #显示页面
 @app.route('/index.html')
@@ -70,14 +71,13 @@ def keyword():
 #签名算法
 def calsign(formdict):
     signstr = ''
-    keys = list(formdict.iterkeys).sort()
-    for key in keys:
+    for key in formdict:
         if key == 'sign' or key == 'keyword':
             continue
         signstr += key + '=' + formdict[key] + '&'
     signstr += 'key=' + ApiSecret
     m = hashlib.md5()
-    m.update(signstr)
+    m.update(signstr.encode('utf-8'))
     signstr = m.hexdigest()
     return signstr.upper()
 
