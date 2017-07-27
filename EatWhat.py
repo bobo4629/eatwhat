@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from flask import render_template
+import json
 import hashlib
 
 app = Flask(__name__)
@@ -72,7 +73,7 @@ def keyword():
 # 签名算法
 def calsign(formdict):
     signstr = ''
-    d = dict(str(formdict.to_dict().keys()))
+    d = json.loads(formdict.to_dict().keys().pop())
     for key in sorted(d.keys()):
         if key == 'sign' or key == 'keyword' or formdict[key] == '':
             continue
