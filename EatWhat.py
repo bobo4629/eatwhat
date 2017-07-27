@@ -36,14 +36,14 @@ def base():
 # 显示页面
 @app.route('/index.html')
 def show():
+    return render_template('index.html')
+
+
+def open():
     if calsign(request.values) == request.form.get('sign'):
         return jsonify({'errcode': 0, 'is_config': 1})
     else:
         return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
-
-
-def open():
-    return calsign(request.values)
 
 
 def close():
