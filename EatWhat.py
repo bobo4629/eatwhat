@@ -40,7 +40,6 @@ def show():
 
 
 def open():
-    return calsign(request.form)
     if calsign(request.form) == request.form.get('sign'):
         return jsonify({'errcode': 0, 'is_config': 1})
     else:
@@ -73,7 +72,7 @@ def keyword():
 # 签名算法
 def calsign(formdict):
     signstr = ''
-    d = formdict.to_dict()
+    d = dict(str(formdict.to_dict().keys()))
     for key in sorted(d.keys()):
         if key == 'sign' or key == 'keyword' or formdict[key] == '':
             continue
