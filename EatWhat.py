@@ -65,7 +65,7 @@ def monitor():
 
 
 def trigger():
-    return web
+    return render_template('index.html')
 
 
 def keyword():
