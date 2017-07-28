@@ -12,7 +12,7 @@ ApiSecret = '8639E817862EB929A993E30FA7846C4F'
 web = 'http://120.77.42.60:5000/index.html'
 
 
-#处理最基本的开启等相关
+# 处理最基本的开启等相关
 @app.route('/index', methods=['POST', 'GET'])
 def base():
     re = None
@@ -41,14 +41,16 @@ def show():
 
 
 def open():
-    if calsign(request.form) == request.form.get('sign'):
+    dic = json.loads(list(request.form.to_dict().keys()).pop())
+    if calsign(dic) == dic.get('sign'):
         return jsonify({'errcode': 0, 'is_config': 1})
     else:
         return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
 
 
 def close():
-    if calsign(request.form) == request.form.get('sign'):
+    dic = json.loads(list(request.form.to_dict().keys()).pop())
+    if calsign(dic) == dic.get('sign'):
         return jsonify({'errcode': 0, 'errmsg': 'OK'})
     else:
         return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
@@ -73,11 +75,10 @@ def keyword():
 # 签名算法
 def calsign(formdict):
     signstr = ''
-    d = json.loads(formdict.to_dict().keys().pop())
-    for key in sorted(d.keys()):
+    for key in sorted(list(formdict.keys())):
         if key == 'sign' or key == 'keyword' or formdict[key] == '':
             continue
-        signstr += key + '=' + d.get(key) + '&'
+        signstr += key + '=' + str(d.get(key)) + '&'
     signstr += 'key=' + ApiSecret
     m = hashlib.md5()
     m.update(signstr.encode('utf-8'))
