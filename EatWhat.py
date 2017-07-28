@@ -16,18 +16,18 @@ web = 'http://120.77.42.60:5000/index.html'
 @app.route('/index', methods=['POST', 'GET'])
 def base():
     re = None
-    type = request.args.get('type')
-    if type == 'open':
+    get_type = request.args.get('type')
+    if get_type == 'open':
         re = open()
-    elif type == 'close':
+    elif get_type == 'close':
         re = close()
-    elif type == 'config':
+    elif get_type == 'config':
         re = config()
-    elif type == 'monitor':
+    elif get_type == 'monitor':
         re = monitor()
-    elif type == 'trigger':
+    elif get_type == 'trigger':
         re = trigger()
-    elif type == 'keyword':
+    elif get_type == 'keyword':
         re = keyword()
     else:
         re = 'service well'
@@ -78,7 +78,7 @@ def calsign(formdict):
     for key in sorted(list(formdict.keys())):
         if key == 'sign' or key == 'keyword' or formdict[key] == '':
             continue
-        signstr += key + '=' + str(d.get(key)) + '&'
+        signstr += key + '=' + str(formdict.get(key)) + '&'
     signstr += 'key=' + ApiSecret
     m = hashlib.md5()
     m.update(signstr.encode('utf-8'))
