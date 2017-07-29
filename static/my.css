@@ -1,0 +1,34 @@
+.margin-top-30{
+    margin-top: 35px;
+}
+.container{
+    text-align: center;
+}
+.eat-how{
+    font-size: 2em;
+    width: 230px;
+    height: 180px;
+    margin: 20px auto;
+} 
+.eat-where{
+    font-size: 1.5em;
+    width: 230px;
+    height: 80px;
+    margin: 16px auto;
+}
+#eat-tip{
+    margin-top: 150px;
+}
+#eat-result{
+    margin-top: 20px;
+    color: orange;
+}
+#start{
+    font-size: 1.5em;
+    width: 230px;
+    height: 80px;
+    margin: 16px auto;
+}
+.temp{
+    position: absolute;
+}
