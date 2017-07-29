@@ -9,7 +9,12 @@ app = Flask(__name__)
 
 ApiKey = 'A91CE25DECC7E6E8'
 ApiSecret = '8639E817862EB929A993E30FA7846C4F'
-web = 'http://120.77.42.60:5000/index.html'
+
+
+# 显示页面方便
+@app.route('/index.html', methods=['GET'])
+def show():
+    return render_template('index.html')
 
 
 # 处理最基本的开启等相关
@@ -34,10 +39,10 @@ def base():
     return re
 
 
-# 显示页面
-@app.route('/index.html')
-def show():
-    return render_template('index.html')
+@app.route('/config', methods=['GET'])
+def config_page():
+    print('')
+    return 'dsad'
 
 
 def open():
@@ -57,7 +62,7 @@ def close():
 
 
 def config():
-    return jsonify({'errcode': 0, 'errmis': 'OK'})
+    return jsonify({'errcode': 0, 'errmsg': 'OK'})
 
 
 def monitor():

@@ -21,7 +21,7 @@ body {
     margin-top: -60px;
     margin-left: -250px;
     width: 500px;
-    height: 120px;
+    height: 300px;
     text-align: center;
 }
 
@@ -36,10 +36,9 @@ body {
     font-weight: 700;
 }
 
-#start {
+#start , #detail {
     width: 120px;
-    height: 40px;
-    +margin-left: 260px;
+    height: 40px;  
     vertical-align: middle;
     font-family: "微软雅黑";
     cursor: pointer;
@@ -94,8 +93,3 @@ body {
     height: 22px;
 }
 
-#weibo {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-}
