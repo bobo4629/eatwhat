@@ -1,3 +1,5 @@
+    
+    var parms = {};
     $(function () {
     var run = 0,
         heading = $("#eat-tip"),
@@ -16,7 +18,7 @@
                 var rTop = Math.ceil(Math.random() * $(document).height()-30),
                     rLeft = Math.ceil(Math.random() * ($(document).width() - 50)),
                     rSize = Math.ceil(Math.random() * (20 - 14) + 14);
-                $("<span class='temp' style='positive:absolute'></span>").html(food).hide().css({
+                $("<span class='temp' ></span>").html(food).hide().css({
                     "top": rTop,
                     "left": rLeft,
                     "color": "rgba(0,0,0,." + Math.random() + ")",
@@ -36,5 +38,19 @@
             run = 0;
         };
     });
+
+
+    $('.eat-how').click(function(){
+        parms['how']=$(this).prop('tag');
+        $('#first_page').fadeOut('fast',function(){
+             $('#second_page').fadeIn('fast');
+        });
+    })
+    $('.eat-where').click(function(){
+        parms['where']=$(this).prop('tag');
+        $('#second_page').fadeOut('fast',function(){
+             $('#third_page').fadeIn('fast');
+        });
+    })
 
 });
