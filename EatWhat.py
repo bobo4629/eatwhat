@@ -24,24 +24,13 @@ def show():
 
 @app.route('/get_data', methods=['POST'])
 def ret_data():
-    return jsonify(get_data())
+    return jsonify(get_data(request.args.get('media_id')))
 
 
-def get_data():
+def get_data(id):
     data = sqlite3.connect(db_path)
     cursor = data.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS ''' + table_name +
-                   ''' (_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name text, 
-                    eat_here INTEGER, 
-                    eat_out INTEGER, 
-                    area_1 INTEGER, 
-                    area_2 INTEGER, 
-                    area_3 INTEGER, 
-                    area_4 INTEGER, 
-                    id text);''')
-
-    cursor.execute('''SELECT * FROM ''' + table_name + ''' WHERE id= ''' + repr(request.form.get('media_id')))
+    cursor.execute('''SELECT * FROM ''' + table_name + ''' WHERE id= ''' + repr(id))
     list_tmp = []
     for item in cursor:
         list_tmp.append({'name': item[1], 'eat_here': item[2],
@@ -93,12 +82,25 @@ def base():
 # 用于调试 实际用index?type=config
 @app.route('/config', methods=['GET'])
 def config_page():
-    return render_template('config.html')
+    return render_template('config.html', list=get_data(request.args.get('media_id')))
 
 
 def open():
     dic = json.loads(list(request.form.to_dict().keys()).pop())
     if calsign(dic) == dic.get('sign'):
+        data = sqlite3.connect(db_path)
+        cursor = data.cursor()
+        cursor.execute('''CREATE TABLE IF NOT EXISTS ''' + table_name +
+                       ''' (_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        name text, 
+                        eat_here INTEGER, 
+                        eat_out INTEGER, 
+                        area_1 INTEGER, 
+                        area_2 INTEGER, 
+                        area_3 INTEGER, 
+                        area_4 INTEGER, 
+                        id text);''')
+        cursor.close()
         return jsonify({'errcode': 0, 'is_config': 1})
     else:
         return jsonify({'errcode': 5004, 'errmsg': 'sign error'})
@@ -107,6 +109,9 @@ def open():
 def close():
     dic = json.loads(list(request.form.to_dict().keys()).pop())
     if calsign(dic) == dic.get('sign'):
+        data = sqlite3.connect(db_path)
+        cursor = data.cursor()
+        cursor.execute("DELETE FROM " + table_name + " where id=" + repr(request.form.get('media_id')))
         return jsonify({'errcode': 0, 'errmsg': 'OK'})
     else:
         return jsonify({'errcode': 5004, 'errmsg': 'sign error'})

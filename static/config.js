@@ -1,6 +1,5 @@
 
 $(function(){
-    
     reset();
     $("#reset").click(function(){
         reset();

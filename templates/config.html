@@ -37,11 +37,10 @@
                 <button class="btn btn-secondary" id="reset">重置</button>
         </div>
         <div style="width:1000px">
-            <table  data-toggle="table" data-search="true" data-show-pagination-switch="true" url='./get_data' >
+            <table id="table"  data-pagination='true'  data-toggle="table" data-search="true" wx_id='{{meida_id}}'  >
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th data-field="_id">_id</th>
                         <th data-field="name">店名</th>
                         <th data-field="eat_here">堂食</th>
                         <th data-field="eat_out">外卖</th>
@@ -52,6 +51,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for item in list %}
+                        <tr>
+                            <td>{{item._id}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.eat_here}}</td>
+                            <td>{{item.eat_out}}</td>
+                            <td>{{item.area_1}}</td>
+                            <td>{{item.area_2}}</td>
+                            <td>{{item.area_3}}</td>
+                            <td>{{item.area_4}}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
