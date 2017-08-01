@@ -1,33 +1,43 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
 body{
     background-image: url('../static/body.jpg');
     background-repeat:no-repeat;
     background-size:100% 100%;
     -moz-background-size:100% 100%;
-    height:100%
+}
+.container-fluid{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .margin-top-30{
-    margin-top: 35px;
+    padding-top: 35px;
 }
 .container{
     text-align: center;
+    height: 100%
 }
-.eat-how{
+.eat_how{
     font-size: 1.5em;
     width: 230px;
-    height: 130px;
+    height: 100px;
     margin: 20px auto;
 } 
-.eat-where{
+.eat_where{
     font-size: 1.5em;
     width: 230px;
     height: 80px;
     margin: 16px auto;
 }
-#eat-tip{
-    margin-top: 150px;
+#eat_tip{
+    padding-top: 150px;
 }
-#eat-result{
+#eat_result{
     margin-top: 20px;
     color: orange;
 }

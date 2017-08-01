@@ -1,0 +1,12 @@
+table{
+    width: 500px;
+}
+.input-form{
+    width:100px;
+}
+.input-form-50{
+    width:50px;
+}
+form{
+    display: inline;
+}

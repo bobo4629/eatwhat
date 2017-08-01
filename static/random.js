@@ -1,9 +1,11 @@
     
-    var parms = {};
+
     $(function () {
     var run = 0,
-        heading = $("#eat-tip"),
+        heading = $("#eat_tip"),
         timer;
+
+    var parms = {};
 
     $("#start").click(function () {
         var list = $("#list").val().replace(/ +/g, " ").replace(/^ | $/g, "").split(" ");
@@ -14,7 +16,7 @@
             timer = setInterval(function () {
                 var r = Math.ceil(Math.random() * list.length),
                     food = list[r - 1];
-                $("#eat-result").html(food);
+                $("#eat_result").html(food);
                 var rTop = Math.ceil(Math.random() * $(document).height()-30),
                     rLeft = Math.ceil(Math.random() * ($(document).width() - 50)),
                     rSize = Math.ceil(Math.random() * (20 - 14) + 14);
@@ -40,13 +42,13 @@
     });
 
 
-    $('.eat-how').click(function(){
+    $('.eat_how').click(function(){
         parms['how']=$(this).prop('tag');
         $('#first_page').fadeOut('fast',function(){
              $('#second_page').fadeIn('fast');
         });
     })
-    $('.eat-where').click(function(){
+    $('.eat_where').click(function(){
         parms['where']=$(this).prop('tag');
         $('#second_page').fadeOut('fast',function(){
              $('#third_page').fadeIn('fast');
