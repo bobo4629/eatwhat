@@ -22,6 +22,16 @@ def show():
     return render_template('index.html')
 
 
+@app.route('/delete_data', methods=['POST'])
+def delete_data():
+    data = sqlite3.connect(db_path)
+    cursor = data.cursor()
+    cursor.execute("DELETE FROM " + table_name + " where name=" + repr(request.form.get('name')))
+    data.commit()
+    cursor.close()
+    return 'done'
+
+
 @app.route('/get_data', methods=['POST'])
 def ret_data():
     return jsonify(get_data(request.args.get('media_id')))
@@ -82,7 +92,8 @@ def base():
 # 用于调试 实际用index?type=config
 @app.route('/config', methods=['GET'])
 def config_page():
-    return render_template('config.html', list=get_data(request.args.get('media_id')))
+    return render_template('config.html', media_id=request.args.get('media_id'),
+                           list=get_data(request.args.get('media_id')))
 
 
 def open():
@@ -120,7 +131,8 @@ def close():
 def config():
     dic = request.args.to_dict()
     if calsign(dic) == dic.get('sign'):
-        return render_template('config.html')
+        return render_template('config.html', list=get_data(request.args.get('media_id')),
+                               media_id=request.args.get('media_id'))
     else:
         return 'sign error'
 

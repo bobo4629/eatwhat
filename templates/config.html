@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="../static/slim-min.css">
     <link type="text/css" rel="stylesheet" href="../static/bootstrap-table.css">
     <link type="text/css" rel="stylesheet" href="../static/config.css">
 </head>
@@ -19,35 +18,38 @@
                 </div>
                 <form class="form-horizontal" method="post" action="./set_data">
                     <label >店名：</label>
-                    <input type="text" name="name" class=" input-form" >&nbsp;&nbsp;
+                    <input type="text" id="name" class=" input-form" >&nbsp;&nbsp;
                     <label>堂食：</label>
-                    <input type="text" name="eat_here" class="input-form-50" >&nbsp;&nbsp;
+                    <input type="text" id="eat_here" class="input-form-50" >&nbsp;&nbsp;
                     <label>外卖：</label>
-                    <input type="text" name="eat_out" class="input-form-50" >&nbsp;&nbsp;
+                    <input type="text" id="eat_out" class="input-form-50" >&nbsp;&nbsp;
                     <label>东区 ：</label>
-                    <input type="text" name="area_1" class="input-form-50" >&nbsp;&nbsp;
+                    <input type="text" id="area_1" class="input-form-50" >&nbsp;&nbsp;
                     <label>西区：</label>
-                    <input type="text" name="area_2" class="input-form-50" >&nbsp;&nbsp;
+                    <input type="text" id="area_2" class="input-form-50" >&nbsp;&nbsp;
                     <label>东丽：</label>
-                    <input type="text" name="area_3" class="input-form-50" >&nbsp;&nbsp;
+                    <input type="text" id="area_3" class="input-form-50" >&nbsp;&nbsp;
                     <label>韩东：</label>
-                    <input type="text" name="area_4" class="input-form-50" >&nbsp;&nbsp;
-                    <input type="submit" class="btn btn-primary" value="添加" >&nbsp;&nbsp;
-                </form>
-                <button class="btn btn-secondary" id="reset">重置</button>
-        </div>
-        <div style="width:1000px">
-            <table id="table"  data-pagination='true'  data-toggle="table" data-search="true" wx_id='{{meida_id}}'  >
+                    <input type="text" id="area_4" class="input-form-50" >&nbsp;&nbsp;
+                </form><br/>
+                <button class="btn btn btn-primary" id="add">添加</button>&nbsp;&nbsp;
+                <button class="btn btn-secondary" id="reset">重置</button>&nbsp;&nbsp;
+                <button class="btn btn-danger" id="delete">删除</button>
+                <label>1为有 0为没有 店名必填 删除是按店名删</label>
+        </div><br/>
+        <div id='table-div' style="width:1000px">
+            <table id="table"  data-pagination='true' class="table" 
+            data-toggle="table"  >
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th data-field="name">店名</th>
-                        <th data-field="eat_here">堂食</th>
-                        <th data-field="eat_out">外卖</th>
-                        <th data-field="area_1">东区</th>
-                        <th data-field="area_2">西区</th>
-                        <th data-field="area_3">东丽</th>
-                        <th data-field="area_4">韩东</th>
+                        <th>店名</th>
+                        <th>堂食</th>
+                        <th>外卖</th>
+                        <th>东区</th>
+                        <th>西区</th>
+                        <th>东丽</th>
+                        <th>韩东</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,8 +69,7 @@
             </table>
         </div>
     </div>
-
-
+    <span id="media_id" style='display:none'>{{media_id}}</span>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/tether/1.2.0/js/tether.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
