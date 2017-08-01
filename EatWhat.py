@@ -12,8 +12,7 @@ ApiKey = 'A91CE25DECC7E6E8'
 ApiSecret = '8639E817862EB929A993E30FA7846C4F'
 
 table_name = 'wechat'
-db_path = 'C:\\Users\\bobo1\\PycharmProjects\\WhatEat\\wechat.db'
-# db_path = './wechat.db'
+db_path = './wechat.db'
 
 
 # 显示页面方便
@@ -32,7 +31,7 @@ def delete_data():
     return 'done'
 
 
-@app.route('/get_data', methods=['POST'])
+@app.route('/get_data', methods=['GET'])
 def ret_data():
     return jsonify(get_data(request.args.get('media_id')))
 
@@ -90,10 +89,10 @@ def base():
 
 
 # 用于调试 实际用index?type=config
-@app.route('/config', methods=['GET'])
-def config_page():
-    return render_template('config.html', media_id=request.args.get('media_id'),
-                           list=get_data(request.args.get('media_id')))
+# @app.route('/config', methods=['GET'])
+# def config_page():
+#    return render_template('config.html', media_id=request.args.get('media_id'),
+#                            list=get_data(request.args.get('media_id')))
 
 
 def open():

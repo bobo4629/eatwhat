@@ -5,10 +5,15 @@
         heading = $("#eat_tip"),
         timer;
 
-    var parms = {};
+    var dic , list = new Array() ,parms= new Array() ;
+    $.get('./get_data',{'media_id':getUrlParam('media_id')},
+    function(data,status,xhr){
+        dic = data;
+    },"json");
+    
+
 
     $("#start").click(function () {
-        var list = $("#list").val().replace(/ +/g, " ").replace(/^ | $/g, "").split(" ");
         $("#detail").hide();
         if (!run) {
             heading.html("努力选择ing");
@@ -43,16 +48,27 @@
 
 
     $('.eat_how').click(function(){
-        parms['how']=$(this).prop('tag');
         $('#first_page').fadeOut('fast',function(){
-             $('#second_page').fadeIn('fast');
+            $('#second_page').fadeIn('fast');
         });
+        parms.push($(this).attr('id'));
     })
     $('.eat_where').click(function(){
-        parms['where']=$(this).prop('tag');
         $('#second_page').fadeOut('fast',function(){
-             $('#third_page').fadeIn('fast');
+            $('#third_page').fadeIn('fast');
         });
+        parms.push($(this).attr('id'));
+        for(i in dic){
+            if(dic[i][parms[0]] == 1 && dic[i][parms[1]] == 1){
+                list.push(dic[i]['name']);
+            }
+        }
     })
 
 });
+
+function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
